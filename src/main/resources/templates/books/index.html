@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>BookStore图书购买</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="carousel slide" id="carousel-885997">
+                <ol class="carousel-indicators">
+                    <li data-slide-to="0" data-target="#carousel-885997" class="active">
+                    </li>
+                    <li data-slide-to="1" data-target="#carousel-885997">
+                    </li>
+                    <li data-slide-to="2" data-target="#carousel-885997">
+                    </li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <a th:href="@{/homepage/1}">
+                        <img class="d-block w-100" alt="Carousel Bootstrap First"
+                             th:src="@{/static/photo/bookstore.png}">
+                        </a>
+                        <div class="carousel-caption">
+                            <h4>
+                                Good books are worth reading in June!
+                            </h4>
+                            <p>
+                                小陈书店六月好书促销开始啦！！！
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a th:href="@{/book/6}">
+                        <img class="d-block w-100" alt="Carousel Bootstrap Second"
+                             th:src="@{/static/photo/wuduguer.png}">
+                        </a>
+                        <div class="carousel-caption">
+                            <h4>
+                                A masterpiece of Dickens!
+                            </h4>
+                            <p>
+                                《雾都孤儿》好书热卖中！！！
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <a th:href="@{/book/4}">
+                        <img class="d-block w-100" alt="Carousel Bootstrap Third"
+                             th:src="@{/static/photo/bashenghuo.png}">
+                        </a>
+                        <div class="carousel-caption">
+                            <h4>
+                                Live your life the way you want it to be!
+                            </h4>
+                            <p>
+                                生活中处处充满着美好，努力前行，观赏前路风景，把生活过成你想要的样子~
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carousel-885997" data-slide="prev"><span
+                        class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> <a
+                    class="carousel-control-next" href="#carousel-885997" data-slide="next"><span
+                    class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                <b>小陈新品推荐</b><br>Xiao Chen New products recommended
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th scope="col" class="align-middle">图书</th>
+                    <th scope="col"><img alt="Bootstrap Image Preview" th:src="@{${recommend1.boPhoto}}" width="170px"
+                                         class="rounded"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" align="center">
+                    <th scope="row">书名</th>
+                    <td th:text="'《'+${recommend1.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">作者</th>
+                    <td th:text="${recommend1.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">价格</th>
+                    <th th:text="${recommend1.boPrice}+' ￥'"></th>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <th scope="row">操作</th>
+                    <th><a th:href="@{'/book/'+${recommend1.boId}}" style="color: white">点击查看</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th scope="col"><img alt="Bootstrap Image Preview" th:src="@{${recommend2.boPhoto}}" width="170px"
+                                         class="rounded"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" align="center">
+                    <td th:text="'《'+${recommend2.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${recommend2.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${recommend2.boPrice}+' ￥'"></td>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <th><a th:href="@{'/book/'+${recommend2.boId}}" style="color: white">点击查看</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th scope="col"><img alt="Bootstrap Image Preview" th:src="@{${recommend3.boPhoto}}" width="170px"
+                                         class="rounded"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" align="center">
+                    <td th:text="'《'+${recommend3.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${recommend3.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${recommend3.boPrice}+' ￥'"></td>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <td><a th:href="@{'/book/'+${recommend3.boId}}" style="color: white">点击查看</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                <b>销量榜前三</b><br>Top three sales
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th scope="col" class="align-middle">图书</th>
+                    <th scope="col"><img alt="Bootstrap Image Preview" th:src="@{${salt1.boPhoto}}" width="170px"
+                                         class="rounded"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" align="center">
+                    <th scope="row">书名</th>
+                    <td th:text="'《'+${salt1.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">作者</th>
+                    <td th:text="${salt1.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">价格</th>
+                    <th th:text="${salt1.boPrice}+' ￥'"></th>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <th scope="row">操作</th>
+                    <th><a th:href="@{'/book/'+${salt1.boId}}" style="color: white">点击查看</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th scope="col"><img alt="Bootstrap Image Preview" th:src="@{${salt2.boPhoto}}" width="170px"
+                                         class="rounded"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" align="center">
+                    <td th:text="'《'+${salt2.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${salt2.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${salt2.boPrice}+' ￥'"></td>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <th><a th:href="@{'/book/'+${salt2.boId}}" style="color: white">点击查看</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-hover">
+                <thead>
+                <tr align="center">
+                    <th scope="col"><img alt="Bootstrap Image Preview" th:src="@{${salt3.boPhoto}}" width="170px"
+                                         class="rounded"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" align="center">
+                    <td th:text="'《'+${salt3.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${salt3.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <td th:text="${salt3.boPrice}+' ￥'"></td>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <td><a th:href="@{'/book/'+${salt3.boId}}" style="color: white">点击查看</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <div class="jumbotron">
+        <div class="col-md-12" style="margin-left: 50px">
+            <h1 class="display-3">联系我们</h1>
+            <p class="lead">21008020814 陈亮男 BookStore图书购买系统</p>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col-md-3" style="margin-top: 50px;margin-left: 63px">
+                地址：大连东软信息学院三期<br>
+                电话：15940576339<br>
+                邮箱：2315405873@qq.com
+            </div>
+            <div class="col-md-3" style="margin-top: 50px">
+                指导教师：盛雨<br>
+                学生姓名：陈亮男 向旭<br>
+            </div>
+            <div class="col-md-5" align="center">
+                <img alt="Bootstrap Image Preview" th:src="@{/static/photo/douyin.jpg}" width="170px" class="rounded">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Bootstrap Image Preview" th:src="@{/static/photo/weixin.png}" width="170px" class="rounded">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/static/index/js/scripts.js}"></script>
+</body>
+</html>

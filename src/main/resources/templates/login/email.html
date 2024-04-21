@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>邮箱对比页</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br><br><br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-danger" th:if="${bbb==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>错误！</strong><br> 验证码输入错误！请重新输入！
+            </div>
+            <form th:action="@{/email}" method="post" th:if="${aaa==0}">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">请输入您的邮箱</label>
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                               placeholder="Email" required>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">确认</button>
+                    </div>
+                </fieldset>
+            </form>
+            <form th:action="@{/emailjudg}" method="post" th:if="${aaa==1}">
+                <input type="hidden" name="code1" th:value="${code}">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">请输入您的验证码</label>
+                        <input type="text" name="code" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp"
+                               placeholder="Verification code" required>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">确认</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/static/index/js/scripts.js}"></script>
+</body>
+</html>

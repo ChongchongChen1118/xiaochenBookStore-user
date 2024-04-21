@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>购物车</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-dismissible alert-success" th:if="${delete==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>删除成功！</strong><br> 期待您的再次选购！
+            </div>
+            <div class="alert alert-dismissible alert-success" th:if="${buy==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>购买成功！</strong><br> 感谢您相信小陈的品牌，望您喜欢我们的商品！
+            </div>
+            <table class="table table-hover">
+                <tr class="table-dark" align="center">
+                    <th scope="row">编号</th>
+                    <th scope="row">图书</th>
+                    <th scope="row">书名</th>
+                    <th scope="row">数量</th>
+                    <th scope="row">总价格</th>
+                    <th scope="row">姓名</th>
+                    <th scope="row">电话</th>
+                    <th scope="row">地址</th>
+                    <th scope="row">操作</th>
+                </tr>
+                <div th:each="shop,aStat:${page.list}">
+                <tr class="table-secondary" align="center">
+                    <td th:text="${aStat.index+1}" class="align-middle"></td>
+                    <td><img th:src="@{${shop.shPhoto}}" width="100px" class="align-middle"></td>
+                    <td th:text="'《'+${shop.shBoname}+'》'" class="align-middle"></td>
+                    <td th:text="${shop.shNum}" class="align-middle"></td>
+                    <td th:text="${shop.shPrice}+' ￥'" class="align-middle"></td>
+                    <td th:text="${shop.shName}" class="align-middle"></td>
+                    <td th:text="${shop.shTel}" class="align-middle"></td>
+                    <td th:text="${shop.prName+' '+shop.ciName+' '+shop.adHouse}" class="align-middle"></td>
+                    <td class="align-middle">
+                        <a th:href="@{'/shopbuy/'+${shop.shId}}">购买</a>&nbsp;&nbsp;
+                        <a th:href="@{'/deleteshop/'+${shop.shId}}">删除</a>
+                    </td>
+                </tr>
+                </div>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasPreviousPage}" th:href="@{'/selectshop/'+${session.user.buId}+'/1'}">首页</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasPreviousPage}">首页</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasPreviousPage}" th:href="@{'/selectshop/'+${session.user.buId}+'/'+${page.prePage}}">&laquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasPreviousPage}">&laquo;</a>
+                </li>
+                <span th:each="num : ${page.navigatepageNums}">
+                    <li class="page-item active">
+                        <a th:if="${page.pageNum == num}" class="page-link" th:href="@{'/selectshop/'+${session.user.buId}+'/'+${num}}" th:text="${num}"></a>
+                    </li>
+                        <li class="page-item">
+                            <a th:if="${page.pageNum != num}" class="page-link" th:href="@{'/selectshop/'+${session.user.buId}+'/'+${num}}" th:text="${num}"></a>
+                        </li>
+                    </span>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasNextPage}" th:href="@{'/selectshop/'+${session.user.buId}+'/'+${page.nextPage}}">&raquo;</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasNextPage}">&raquo;</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" th:if="${page.hasNextPage}" th:href="@{'/selectshop/'+${session.user.buId}+'/'+${page.pages}}">末页</a>
+                </li>
+                <li  class="page-item disabled">
+                    <a class="page-link" th:if="${!page.hasNextPage}">末页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/static/index/js/scripts.js}"></script>
+</body>
+</html>

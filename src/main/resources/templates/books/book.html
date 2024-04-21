@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title th:text="${book.boName}"></title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">
+                Book homepage
+            </h3>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="alert alert-dismissible alert-danger" th:if="${nums==2}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <font _mstmutation="1"><strong _mstmutation="1">购买失败！</strong><br>请输入全部购买信息！
+                </font></div>
+            <div class="alert alert-dismissible alert-success" th:if="${nums==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <font _mstmutation="1"><strong _mstmutation="1">购买成功！</strong> <br>感谢您相信小陈的品牌，望您喜欢我们的商品！
+                </font></div>
+            <div class="alert alert-dismissible alert-success" th:if="${prompt==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <font _mstmutation="1"><strong _mstmutation="1">加入购物车成功！</strong>
+                </font></div>
+            <div class="alert alert-dismissible alert-danger" th:if="${prompt==2}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <font _mstmutation="1"><strong _mstmutation="1">加入购物车失败！</strong><br>请输入全部购买信息！
+                </font></div>
+            <table class="table table-hover">
+                <tr class="table-light" align="center">
+                    <th scope="row" style="width: 100px" class="align-middle">图书</th>
+                    <td><img th:src="@{${book.boPhoto}}" width="150px" class="align-middle"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">书名</th>
+                    <td th:text="'《'+${book.boName}+'》'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">作者</th>
+                    <td th:text="${book.boAuthor}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">分类</th>
+                    <td th:text="${book.clType}"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">ISBN码</th>
+                    <td th:text="'--'+${book.boNumber}+'--'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row">价格</th>
+                    <td th:text="${book.boPrice}+' ￥'"></td>
+                </tr>
+                <tr class="table-light" align="center">
+                    <th scope="row" class="align-middle">简介</th>
+                    <td th:text="${book.boIntroduction}"></td>
+                </tr>
+                <tr class="table-dark" align="center">
+                    <th scope="row" class="align-middle">操作</th>
+                    <td th:if="${book.boInventory>0}"><a id="modal-471703" href="#modal-container-471712" role="button" class="btn btn-secondary"
+                           data-toggle="modal" style="color: white">购买</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a id="modal-471704" href="#modal-container-471713" role="button" class="btn btn-secondary"
+                           data-toggle="modal" style="color: white">加入购物车</a>
+                    </td>
+                    <td th:if="${book.boInventory<=0}"><a role="button" class="btn btn-secondary"
+                                                        data-toggle="modal" style="color: white">库存不足</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a role="button" class="btn btn-secondary"
+                           data-toggle="modal" style="color: white">禁止操作</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="modal-container-471712" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">
+                                请输入您的购买信息！
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/purchase}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" name="orNumber" th:value="${book.boNumber}">
+                                <input type="hidden" name="boId" th:value="${book.boId}">
+                                <div th:if="${session.user!=null}">
+                                    <input type="hidden" name="orBuyid" th:value="${session.user.buId}">
+                                </div>
+                                <div th:if="${session.user==null}">
+                                    <input type="hidden" name="orBuyid" th:value="-1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">姓名</label>
+                                    <input type="text" name="orName" class="form-control" id="exampleInputEmail1"
+                                           aria-describedby="emailHelp" placeholder="请输入姓名"
+                                           _mstplaceholder="155493">
+                                    <small id="emailHelp"
+                                           class="form-text text-muted">请放心，我们会对你的个人信息严格保密！！！</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">电话</label>
+                                    <input type="number" name="orTel" class="form-control" id="exampleInputEmail2"
+                                           placeholder="请输入电话" _mstplaceholder="117572">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleSelect1">地址</label>
+                                    <select class="form-control" id="exampleSelect1" name="orHouse">
+                                        <option th:each="address:${list}" th:value="${address.prName}+' '+${address.ciName}+' '+${address.adHouse}" th:text="${address.prName}+' '+${address.ciName}+' '+${address.adHouse}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail4">购买数量</label>
+                                    <input type="number" name="orNum" class="form-control" id="exampleInputEmail4"
+                                           placeholder="请输入购买数量" _mstplaceholder="117572">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="确定"/>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    取消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="modal-container-471713" role="dialog" aria-labelledby="myModalLabel1"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel1">
+                                请输入您的加入购物车信息！
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/insertshop}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" name="shPhoto" th:value="${book.boPhoto}">
+                                <input type="hidden" name="shBoname" th:value="${book.boName}">
+                                <input type="hidden" name="shPrice" th:value="${book.boPrice}">
+                                <input type="hidden" name="shBooks" th:value="${book.boId}">
+                                <div th:if="${session.user!=null}">
+                                    <input type="hidden" name="shBuyer" th:value="${session.user.buId}">
+                                </div>
+                                <div th:if="${session.user==null}">
+                                    <input type="hidden" name="shBuyer" th:value="-1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail11">姓名</label>
+                                    <input type="text" name="shName" class="form-control" id="exampleInputEmail11"
+                                           aria-describedby="emailHelp" placeholder="请输入姓名"
+                                           _mstplaceholder="155493">
+                                    <small id="emailHelp1"
+                                           class="form-text text-muted">请放心，我们会对你的个人信息严格保密！！！</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail22">电话</label>
+                                    <input type="number" name="shTel" class="form-control" id="exampleInputEmail22"
+                                           placeholder="请输入电话" _mstplaceholder="117572">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleSelect2">地址</label>
+                                    <select class="form-control" id="exampleSelect2" name="shHouse">
+                                        <option th:each="address:${list}" th:value="${address.adId}" th:text="${address.prName}+' '+${address.ciName}+' '+${address.adHouse}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail44">加入购物车数量</label>
+                                    <input type="number" name="shNum" class="form-control" id="exampleInputEmail44"
+                                           placeholder="请输入购买数量" _mstplaceholder="117572">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" value="加入购物车"/>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    取消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/static/index/js/scripts.js}"></script>
+</body>
+</html>

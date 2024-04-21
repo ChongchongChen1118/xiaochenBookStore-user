@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.qmxm.mapper.BooksMapper">
+	<!-- 查询商品分类列表-->
+	<select id="salesVolume"  resultType="booksModel">
+		select * from books order by bo_salt desc limit 0,3
+	</select>
+	<select id="recommend"  resultType="booksModel">
+		select * from books where bo_recommended=1 order by bo_salt desc
+	</select>
+	<select id="allbooks"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id
+	</select>
+	<select id="salesvolume"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id order by a.bo_salt desc
+	</select>
+	<select id="priceasc"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id order by a.bo_price asc
+	</select>
+	<select id="pricedesc"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id order by a.bo_price desc
+	</select>
+	<select id="classification"  resultType="classificationModel">
+		select * from bookscl order by cl_id asc
+	</select>
+	<select id="typeBooks"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id where a.bo_cid=#{cid}
+	</select>
+	<select id="bookName"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id where a.bo_name like CONCAT('%',#{name},'%')
+	</select>
+	<select id="oneBook"  resultType="booksModel">
+		select * from books a inner join bookscl b on a.bo_cid=b.cl_id where a.bo_id=#{id}
+	</select>
+	<insert id="purchase" parameterType="orderModel">
+		insert into orders values (null,#{orNumber},#{orBuyid},#{orNum},#{orName},#{orHouse},#{orTel},0,#{orTime},null,null)
+	</insert>
+	<update id="inventory">
+		update books set bo_inventory=#{param1},bo_salt=#{param2} where bo_id=#{param3}
+	</update>
+	<select id="ordermo"  resultType="orderModel">
+		select * from orders where or_buyid =#{id} order by or_yes asc,or_time desc
+	</select>
+	<select id="getboNumber" resultType="String">
+		select bo_number from books where bo_id=#{id}
+	</select>
+</mapper>

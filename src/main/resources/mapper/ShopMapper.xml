@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.qmxm.mapper.ShopMapper">
+	<select id="selectshop"  resultType="shopModelDTO">
+		select * from shop sh
+		         inner join buyer_address ad on sh.sh_house=ad.ad_id
+		         inner join district_city ci on ad.ad_city=ci.ci_id
+		         inner join district_province pr on ad.ad_province=pr.pr_id
+		         where sh_buyer=#{id} and sh_yes=0
+	</select>
+	<select id="selectshopbyid"  resultType="shopModel">
+		select * from shop where sh_buyer=#{param1} and sh_books=#{param2} and sh_yes=0
+	</select>
+	<insert id="insertshop" parameterType="shopModel">
+		insert into shop values (null, #{shBuyer}, #{shBooks},#{shNum},#{shName},#{shHouse},#{shTel},0,#{shPhoto},#{shBoname},#{shPrice});
+	</insert>
+	<update id="updatashop">
+		update shop set sh_num=#{param1},sh_price=#{param2},sh_name=#{param5},sh_tel=#{param6},sh_house=#{param7} where sh_buyer=#{param3} and sh_books=#{param4}
+	</update>
+	<delete id="deleteshop">
+		delete from shop where sh_id=#{id}
+	</delete>
+	<update id="updateshopyes">
+		update shop set sh_yes=1 where sh_buyer=#{param1} and sh_books=#{param2}
+	</update>
+	<select id="shopbyid" resultType="shopModel">
+		select * from shop where sh_id=#{id}
+	</select>
+	<select id="selectAddress" resultType="buyerAddressDTO">
+		select ad.*,pr.*,ci.* from buyer_address ad
+		inner join district_province pr on ad.ad_province=pr.pr_id
+		inner join district_city ci on ad.ad_city=ci.ci_id
+		where ad.ad_buyer=#{id}
+	</select>
+	<insert id="insertAddress">
+		insert  into buyer_address(ad_province,ad_city,ad_house,ad_buyer)
+		values(#{adProvince},#{adCity},#{adHouse},#{adBuyer})
+	</insert>
+	<update id="updateAddress">
+		update buyer_address set ad_province=#{adProvince},ad_city=#{adCity},ad_house=#{adHouse} where ad_id=#{adId}
+	</update>
+	<delete id="deleteAddress">
+		delete from buyer_address where ad_id=#{id}
+	</delete>
+	<select id="selectProvince" resultType="districtProvince">
+		select * from district_province
+	</select>
+	<select id="selectCity" resultType="districtCity">
+		select * from district_city where ci_cid=#{id}
+	</select>
+	<select id="selectProvinceByCityId" resultType="districtProvince">
+		select pr.*  from district_province pr
+		         inner join district_city ci on ci.ci_cid=pr.pr_id
+		where ci.ci_id=#{id}
+	</select>
+	<select id="selectAddressById" resultType="buyerAddress">
+		select * from buyer_address where ad_id=#{id}
+	</select>
+	<select id="selectAddressDTOById" resultType="buyerAddressDTO">
+		select * from buyer_address  ad
+		         inner join district_province pr on ad.ad_province=pr.pr_id
+		         inner join district_city ci on ad.ad_city=ci.ci_id
+		         where ad_id=#{id}
+	</select>
+	<update id="deliver">
+		update orders set or_yes=2 where or_id=#{id}
+	</update>
+</mapper>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>登录页</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+    <link th:href="@{/static/index/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/static/index/css/style.css}" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div th:replace="header::header"></div>
+    <br><br><br><br><br>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-dismissible alert-success" th:if="${value==1}">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong><br> 注册成功，请在此登录！
+            </div>
+            <br>
+            <form th:action="@{/compare}" method="post">
+                <div th:if="${confirm==0}">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">账号</label>
+                        <input type="text" name="account" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                               placeholder="Account">
+                        <small id="emailHelp" class="form-text text-muted">我们绝对不会把您的个人信息告诉别人哦！</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </div>
+                </fieldset>
+                </div>
+                <div th:if="${confirm==1}">
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid1">账号</label>
+                        <input type="text" name="account" class="form-control is-invalid" id="inputInvalid1" placeholder="Account" th:value="${account}">
+                        <div class="invalid-feedback">对不起，您输入的账号或密码有误，请重新输入！</div>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid2">密码</label>
+                        <input type="password" name="pass" class="form-control is-invalid" id="inputInvalid2" placeholder="Password">
+                        <div class="invalid-feedback">对不起，您输入的账号或密码有误，请重新输入！</div>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </div>
+                </div>
+                <div th:if="${confirm==2}">
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid3">账号</label>
+                        <input type="text" name="account" class="form-control is-invalid" id="inputInvalid3" placeholder="Account" th:value="${account}">
+                        <div class="invalid-feedback">您的账号疑似被封禁，请联系管理员解决！</div>
+                    </div>
+
+                    <div class="form-group has-danger">
+                        <label class="form-control-label" for="inputInvalid4">密码</label>
+                        <input type="password" name="pass" class="form-control is-invalid" id="inputInvalid4" placeholder="Password">
+                        <div class="invalid-feedback">您的账号疑似被封禁，请联系管理员解决！</div>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--	<script th:src="@{/static/index/js/jquery.min.js}"></script>-->
+<!--	<script th:src="@{/static/index/js/bootstrap.min.js}"></script>-->
+<script th:src="@{/static/index/js/scripts.js}"></script>
+</body>
+</html>
